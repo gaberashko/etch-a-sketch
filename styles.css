@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing:border-box;
+}
+
+.container {
+    width: 500px;
+    height: 500px;
+    display:flex;
+    flex-wrap:wrap;
+    user-select:none;
+    margin: 5vh auto;
+}
+
+.square {
+    border:none;
+    background-color:black;
+    opacity:0;
+    flex-grow:1;
+    flex-basis:25%;
+    min-height:25%;
+}
+
+#size-button {
+    margin: 0px auto;
+    position:relative;
+    left:50%;
+}
