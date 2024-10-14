@@ -7,8 +7,42 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <button id="size-button">Change Size</button>
-    <div class="container"> </div>
+    <div class="top-option-container">
+        <button id="size-button">Change Size</button>
+        <button id="clear-button">Clear Canvas</button>
+        <button id="tool-button">Change Tool</button>
+        <div id="tool-display"></div>
+    </div>
+    <div class="wrapper">
+        <div class="side-option-container">
+            <p class="strong">Pencil Settings</p>
+            <div class="settings-container">
+                <div class="setting-wrapper">
+                    <ul>
+                        <li><input type="range" min="0" max="255" value="0" name="redValue" id="red" class="range-setting">Red</li>
+                        <li><input type="range" min="0" max="255" value="0" name="greenValue" id="green" class="range-setting">Green</li>
+                        <li><input type="range" min="0" max="255" value="0" name="blueValue" id="blue" class="range-setting">Blue</li>
+                        <li><input type="range" name="strengthValue" id="strength" min="0" max="1" step=".01" value=".20" class="range-setting">Strength</input></li>
+                        <li><input type="checkbox" name="rainbowValue" id="rainbow" class="checkbox">Rainbow</input></li>
+                        <li><input type="checkbox" name="blendValue" id="blend" class="checkbox">Blend</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pencil-detail-wrapper">
+                <div class="pencil-detail-rgb">RGB: (0, 0, 0)</div>
+                <div class="pencil-detail-strength">Strength: 20%</div>
+                <div class="rgb-visual">
+                    <input type="color" name="colorValue" id="color-wheel" value="color"/>
+                </div>
+            </div>
+            <p class="strong">Canvas Settings</p>
+            <div class="canvas-setting-wrapper">
+                <div class="canvas-dimension">Canvas: 4 x 4</div>
+                <button id="save-button">Download Sketch</button>
+            </div>
+        </div>
+        <div class="container"> </div>
+    </div>
     <script src="javascript.js"></script>
 </body>
 </html>
