@@ -86,19 +86,22 @@ function changeGridSize(size) {
                 }
             }
         });
-        square.addEventListener("mousedown", () => {
-            // Draw
-            if (tools[toolIndex] === "Pencil") {
-                (rainbowMode) ? randomizeColor(square) : drawColor(square);
-            } else if (tools[toolIndex] === "Eraser") { // Erase
-                square.style.opacity = parseFloat(getComputedStyle(square).opacity) 
-                - toolSettings.strength;
-            } else if (tools[toolIndex] === "Fill") {
-                floodFill(square);
-            } else if (tools[toolIndex] === "Match") {
-                grabColor(square);
-            }
-        });
+        let events = ["mousedown", "touchstart"];
+        events.forEach((event) => {
+            square.addEventListener(event, () => {
+                // Draw
+                if (tools[toolIndex] === "Pencil") {
+                    (rainbowMode) ? randomizeColor(square) : drawColor(square);
+                } else if (tools[toolIndex] === "Eraser") { // Erase
+                    square.style.opacity = parseFloat(getComputedStyle(square).opacity) 
+                    - toolSettings.strength;
+                } else if (tools[toolIndex] === "Fill") {
+                    floodFill(square);
+                } else if (tools[toolIndex] === "Match") {
+                    grabColor(square);
+                }
+            });
+        })
         // Adjust the square style to create a proper grid.
         square.setAttribute("style", `flex-basis:${(1/size)*100}%; min-height:${(1/size)*100}%;`);
         container.appendChild(square);
