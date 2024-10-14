@@ -75,7 +75,7 @@ function changeGridSize(size) {
         let square = document.createElement("div");
         square.classList.add("square");
         square.classList.toggle("new");
-        square.addEventListener("mouseenter", (event) => {
+        square.addEventListener("pointerenter", (event) => {
             if (event.buttons === 1) {
                 // Draw
                 if (tools[toolIndex] === "Pencil") {
@@ -86,8 +86,8 @@ function changeGridSize(size) {
                 }
             }
         });
-        let events = ["mousedown", "touchstart"];
-        events.forEach((event) => {
+        let startEvents = ["mousedown", "touchstart"];
+        startEvents.forEach((event) => {
             square.addEventListener(event, () => {
                 // Draw
                 if (tools[toolIndex] === "Pencil") {
