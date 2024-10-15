@@ -186,7 +186,10 @@ gridButton.addEventListener("click", () => {
 
 // Implement the logic for clear button.
 let clearButton = document.querySelector("#clear-button");
-clearButton.addEventListener("click", clearCanvas);
+clearButton.addEventListener("click", () => {
+    let clearAudio = new Audio("audio/eraser-woosh.mp3")
+    clearAudio.play();
+    clearCanvas();});
 
 // Implement the logic for the change tool button.
 let toolButton = document.querySelector("#tool-button");
