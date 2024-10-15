@@ -45,8 +45,8 @@ The board is painted by clicking, and dragging across the tiles of the board. Th
 
 The rainbow feature selects a random RGB value to paint each grid on the canvas, while the blend feature sets the grid to the midpoint between two RGB values.
 
- [!NOTE]
- If the RGB differs with blend mode activated, the opacity of the tile will compound with the current tool opacity. If blend mode is inactivated, a different RGB will reset opacity to that of the current tool strength.
+ > [!NOTE]
+ > If the RGB differs with blend mode activated, the opacity of the tile will compound with the current tool opacity. If blend mode is inactivated, a different RGB will reset opacity to that of the current tool strength.
 
 ### Top Settings
  <img src="images/top-buttons.png" width=100%>
@@ -69,8 +69,8 @@ Clicking the "Change Tool" button allows the user to switch between several tool
 
 Clicking the "Download Sketch" button saves the current drawing, and downloads it to your computer as a .png representation.
 
-[!NOTE]
-Keep in mind that strokes with an opacity less than 100% may exhibit dimming, since the transparency results in a different appearance on the website compared to the .png file.
+> [!NOTE]
+> Keep in mind that strokes with an opacity less than 100% may exhibit dimming, since the transparency results in a different appearance on the website compared to the .png file.
 
 ## Gallery
 <div width=100%>
