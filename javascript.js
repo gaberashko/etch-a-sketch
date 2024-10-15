@@ -133,6 +133,11 @@ function floodFill(startingSquare) {
     const squareStack = [];
     squareStack.push(startingSquare);
 
+    // Check if the current square is the same as the target. If so, return.
+    if (targetRGB === `rgb(${toolSettings.red}, ${toolSettings.green}, ${toolSettings.blue})` && equalOpacity(targetOpacity, toolSettings.strength)) {
+        return;
+    }
+
     while (squareStack.length > 0) {
         // Color the current pixel selected.
         let curElement = squareStack.pop();
