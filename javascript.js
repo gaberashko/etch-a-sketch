@@ -23,7 +23,6 @@ let toolSettings = {
 let container = document.querySelector(".container");
 let toolDisplay = document.querySelector("#tool-display");
 changeGridSize(DEFAULT_GRID_SIZE);
-clearCanvas();
 
 function getRandomInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -116,6 +115,7 @@ function changeGridSize(size) {
     });
     canvasSize = size;
     updateSettingsDisplay();
+    clearCanvas();
 }
 
 function grabColor(square) {
