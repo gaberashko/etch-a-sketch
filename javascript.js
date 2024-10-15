@@ -134,7 +134,7 @@ function floodFill(startingSquare) {
     squareStack.push(startingSquare);
 
     // Check if the current square is the same as the target. If so, return.
-    if (targetRGB === `rgb(${toolSettings.red}, ${toolSettings.green}, ${toolSettings.blue})` && equalOpacity(targetOpacity, toolSettings.strength)) {
+    if (targetRGB === `rgb(${toolSettings.red}, ${toolSettings.green}, ${toolSettings.blue})` && equalOpacity(startingSquare, toolSettings.strength)) {
         return;
     }
 
