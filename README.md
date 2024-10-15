@@ -40,6 +40,10 @@ The etch-a-sketch includes several features intended to enhance the precision wi
 The board is painted by clicking, and dragging across the tiles of the board. The sliders on the right of the canvas offer precise control over the RGB value of user streak, and streak opacity (strength). Clicking the streak display will open a rainbow gradient for choosing streak colors.
 
 <p align="center">
+<img src="images/rgb-selector.png">
+</p>
+
+<p align="center">
 <img src="images/pencil-settings.png" margin = 0 auto  width=200px>
 </p>
 
@@ -79,6 +83,8 @@ Clicking the "Download Sketch" button saves the current drawing, and downloads i
     <img src="images/website-sketch-2.png" width=200px>
     <img src="images/website-sketch-3.png" width=200px>
     <img src="images/website-sketch-4.png" width=200px>
+    <img src="images/website-sketch-5.png" width=200px>
+    <img src="images/website-sketch-6.png" width=200px>
 </div>
 
 ## Credit
