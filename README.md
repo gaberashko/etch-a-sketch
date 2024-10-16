@@ -18,7 +18,7 @@
 - [Credit](#credit)
 
 ## About
-This Etch-a-Sketch project is the first web-dev project I've created outside of an academic setting, combining self-taught HTML/CSS/JavaScript knowledge over the course of a few weeks. The project is a fleshed out canvas tool, offering various features of user funcitonality to provide precise means of painting beautiful images.
+This Etch-a-Sketch project is the first web-dev project I've created outside of an academic setting, combining self-taught HTML/CSS/JavaScript knowledge over the course of a few weeks. The project is a fleshed out canvas tool, offering various features of user functionality to provide precise means of painting beautiful images.
 
 <img src="images/website-empty.png">
 
