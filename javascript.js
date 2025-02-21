@@ -1,7 +1,7 @@
 // Board constants.
 const DEFAULT_GRID_SIZE = 25;
 const MAX_GRID_SIZE = 150;
-const TOOL_STRENGTH = .20;
+const TOOL_STRENGTH = 1;
 const BLEND_STRENGTH = .20;
 const EMPTY_WHITE = "rgb(255, 255, 255)";
 
@@ -131,8 +131,12 @@ function grabColor(square) {
 function floodFill(startingSquare) {
     let targetRGB = (getComputedStyle(startingSquare).backgroundColor);
     let targetOpacity = parseFloat(getComputedStyle(startingSquare).opacity);
+
+    const squares = Array.from(container.children);
+    const visited = new Set();
     const squareStack = [];
-    squareStack.push(startingSquare);
+    let startIndex = squares.indexOf(startingSquare);
+    squareStack.push(startIndex);
 
     // Check if the current square is the same as the target. If so, return.
     if (targetRGB === `rgb(${toolSettings.red}, ${toolSettings.green}, ${toolSettings.blue})` && equalOpacity(startingSquare, toolSettings.strength)) {
@@ -140,26 +144,29 @@ function floodFill(startingSquare) {
     }
 
     while (squareStack.length > 0) {
-        // Color the current pixel selected.
-        let curElement = squareStack.pop();
+        let curIndex = squareStack.pop();
+        // Color current pixel if not visited.
+        // Check adjacent pixels and process those not visited.
+        if (visited.has(curIndex)) continue;
+        visited.add(curIndex);
+        curElement = squares[curIndex];
         curElement.style.backgroundColor = `rgb(${toolSettings.red}, ${toolSettings.green}, ${toolSettings.blue})`;
         curElement.style.opacity = toolSettings.strength;
-        // Check adjacent pixels.
-        let curIndex = Array.from(container.children).indexOf(curElement);
+
         let xCoord = curIndex % canvasSize;
         let yCoord = Math.floor(curIndex / canvasSize);
         // Check left adjacent
-        if ((xCoord > 0) && equalRGB(container.children[curIndex - 1], targetRGB) && equalOpacity(container.children[curIndex - 1], targetOpacity))
-            squareStack.push(container.children[curIndex - 1]);
+        if ((xCoord > 0) && equalRGB(squares[curIndex - 1], targetRGB) && equalOpacity(squares[curIndex - 1], targetOpacity))
+            squareStack.push(curIndex - 1);
         // Check right adjacent
-        if ((xCoord < canvasSize - 1) && equalRGB(container.children[curIndex + 1], targetRGB) && equalOpacity(container.children[curIndex + 1], targetOpacity))
-            squareStack.push(container.children[curIndex + 1]);
+        if ((xCoord < canvasSize - 1) && equalRGB(squares[curIndex + 1], targetRGB) && equalOpacity(squares[curIndex + 1], targetOpacity))
+            squareStack.push(curIndex + 1);
         // Check top adjacent
-        if ((yCoord > 0) && equalRGB(container.children[curIndex - canvasSize], targetRGB) && equalOpacity(container.children[curIndex - canvasSize], targetOpacity))
-            squareStack.push(container.children[curIndex - canvasSize]);
+        if ((yCoord > 0) && equalRGB(squares[curIndex - canvasSize], targetRGB) && equalOpacity(squares[curIndex - canvasSize], targetOpacity))
+            squareStack.push(curIndex - canvasSize);
         // Check bottom adjacent
-        if ((yCoord < canvasSize - 1) && equalRGB(container.children[curIndex + canvasSize], targetRGB) && equalOpacity(container.children[curIndex + canvasSize], targetOpacity))
-            squareStack.push(container.children[curIndex + canvasSize]);
+        if ((yCoord < canvasSize - 1) && equalRGB(squares[curIndex + canvasSize], targetRGB) && equalOpacity(squares[curIndex + canvasSize], targetOpacity))
+            squareStack.push(curIndex + canvasSize);
     }
 }
 
