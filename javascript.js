@@ -8,6 +8,7 @@ const EMPTY_WHITE = "rgb(255, 255, 255)";
 
 // State variables
 let tools = ["Pencil", "Eraser", "Fill", "Match"];
+let toolEmojis = ["✏️", "🧼", "🧺", "🎨"]
 let toolIndex = 0;
 let rainbowMode = false;
 let blendMode = false;
@@ -130,9 +131,9 @@ function changeGridSize(size) {
 
 function grabColor(square) {
     let rgbValues = (getComputedStyle(square).backgroundColor).match(/\d+/g);
-    toolSettings.red = rgbValues[0];
-    toolSettings.green = rgbValues[1];
-    toolSettings.blue = rgbValues[2];
+    toolSettings.red = parseInt(rgbValues[0]);
+    toolSettings.green = parseInt(rgbValues[1]);
+    toolSettings.blue = parseInt(rgbValues[2]);
     toolSettings.strength = parseFloat(getComputedStyle(square).opacity);
     toolIndex = 0;
     updateSettingsDisplay();
@@ -212,7 +213,7 @@ clearButton.addEventListener("click", () => {
 let toolButton = document.querySelector("#tool-button");
 toolButton.addEventListener("click", () => {
     toolIndex = (toolIndex + 1) % tools.length;
-    toolDisplay.textContent = `Tool: ${tools[toolIndex]}`;
+    toolDisplay.textContent = `Tool: ${tools[toolIndex]} ${toolEmojis[toolIndex]}`;
 });
 
 // Implement logic for pencil slider settings.
@@ -284,7 +285,7 @@ function updateSettingsDisplay() {
     greenValueSlider.value = toolSettings.green;
     blueValueSlider.value = toolSettings.blue;
     strengthValueSlider.value = toolSettings.strength;
-    toolDisplay.textContent = `Tool: ${tools[toolIndex]}`;
+    toolDisplay.textContent = `Tool: ${tools[toolIndex]} ${toolEmojis[toolIndex]}`;
     
 
     rgbText.textContent = `RGB: (${toolSettings.red}, ${toolSettings.green}, ${toolSettings.blue})`;
