@@ -21,6 +21,11 @@ let toolSettings = {
 
 // Initialize the displays, and begin by creating a grid of size DEFAULT_GRID_SIZE.
 let container = document.querySelector(".container");
+
+container.addEventListener("contextmenu", (e) => {
+e.preventDefault();
+})
+
 let toolDisplay = document.querySelector("#tool-display");
 changeGridSize(DEFAULT_GRID_SIZE);
 
@@ -76,16 +81,21 @@ function changeGridSize(size) {
         square.classList.add("square");
         square.classList.toggle("new");
         square.addEventListener("pointerdown", (e) => {
-            // Draw
-            if (tools[toolIndex] === "Pencil") {
-                (rainbowMode) ? randomizeColor(square) : drawColor(square);
-            } else if (tools[toolIndex] === "Eraser") { // Erase
-                square.style.opacity = parseFloat(getComputedStyle(square).opacity) 
-                - toolSettings.strength;
-            } else if (tools[toolIndex] === "Fill") {
-                floodFill(square);
-            } else if (tools[toolIndex] === "Match") {
+            if (e.button === 0) {
+                 // Draw
+                if (tools[toolIndex] === "Pencil") {
+                    (rainbowMode) ? randomizeColor(square) : drawColor(square);
+                } else if (tools[toolIndex] === "Eraser") { // Erase
+                    square.style.opacity = parseFloat(getComputedStyle(square).opacity) 
+                    - toolSettings.strength;
+                } else if (tools[toolIndex] === "Fill") {
+                    floodFill(square);
+                } else if (tools[toolIndex] === "Match") {
+                    grabColor(square);
+                }
+            } else if (e.button === 2) {
                 grabColor(square);
+                e.preventDefault();
             }
             square.releasePointerCapture(e.pointerId);
         });

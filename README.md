@@ -66,7 +66,7 @@ Clicking the "Change Tool" button allows the user to switch between several tool
 * **Pencil**: Makes single solitary strokes on the canvas as the left mouse button is clicked and dragged.
 * **Eraser**: Softens the strokes on the canvas using the current strength value selected in pencil settings.
 * **Fill**: Colors a region of adjacent tiles with the same RGB value to the new RGB value as selected in pencil settings.
-* **Match**: Clicking a tile will set the RGB, and strength value in pencil settings to that of the tile that was clicked. Automatically transitions the user to the pencil tool upon left mouse button click.
+* **Match**: Clicking a tile will set the RGB, and strength value in pencil settings to that of the tile that was clicked. Automatically transitions the user to the pencil tool upon left mouse button click. This effect can also be achieved with right click.
 
 #### Download Sketch
 <img src="images/download-sketch.png">
