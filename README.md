@@ -47,8 +47,7 @@ The board is painted by clicking, and dragging across the tiles of the board. Th
 <img src="images/pencil-settings.png" margin = 0 auto  width=200px>
 </p>
 
-The rainbow feature selects a random RGB value to paint each grid on the canvas, while the blend feature sets the grid to the midpoint between two RGB values.
-
+The rainbow feature selects a random RGB value to paint each grid on the canvas (can be toggled via 'r' key), while the blend feature sets the grid to the midpoint between two RGB values (can be toggled via 'b' key).
  > [!NOTE]
  > If the RGB differs with blend mode activated, the opacity of the tile will compound with the current tool opacity. If blend mode is inactivated, a different RGB will reset opacity to that of the current tool strength.
 

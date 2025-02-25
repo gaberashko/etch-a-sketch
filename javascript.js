@@ -22,6 +22,7 @@ let toolSettings = {
 
 // Initialize the displays, and begin by creating a grid of size DEFAULT_GRID_SIZE.
 let container = document.querySelector(".container");
+let rgbVisual = document.querySelector(".rgb-visual");
 
 container.addEventListener("contextmenu", (e) => {
 e.preventDefault();
@@ -236,7 +237,6 @@ settingInputs.forEach((settingInput) => {
 // Implement logic for rainbow checkbox.
 let rainbowCheckbox = document.querySelector("#rainbow");
 rainbowCheckbox.addEventListener("change", ()=> {
-    let rgbVisual = document.querySelector(".rgb-visual");
     rainbowMode = rainbowCheckbox.checked;
     //rgbVisual.classList.toggle("rainbow");
     rgbVisual.classList.toggle("rgb-visual-animated");
@@ -327,4 +327,22 @@ downloadButton.addEventListener("click", function() {
     link.href = image;
     link.download = "canvas.png";
     link.click();
+});
+
+window.addEventListener("keydown", (event) => {
+    let settingChange = false;
+    switch (event.key) {
+        case "b":
+            blendCheckbox.checked = !blendCheckbox.checked;
+            blendMode = blendCheckbox.checked;
+            settingChange = true;
+            break;
+        case "r":
+            rainbowCheckbox.checked = !rainbowCheckbox.checked;
+            rainbowMode = rainbowCheckbox.checked;
+            rgbVisual.classList.toggle("rgb-visual-animated");
+            settingChange = true;
+            break;
+    }
+    if (settingChange) updateSettingsDisplay;
 });
