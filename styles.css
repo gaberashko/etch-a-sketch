@@ -170,7 +170,7 @@ input[type="range"]#blue::-moz-range-progress {
     border: 4px solid var(--pac);
     border-radius: 10px;
     background-color: #eeebeb;
-    background:linear-gradient(135deg, #eeebeb, #ad9e97);
+    background:linear-gradient(135deg, #eeebeb, #c9c5c3);
     padding: 8px;
     z-index: 0;
 }
