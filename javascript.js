@@ -297,7 +297,7 @@ function updateSettingsDisplay() {
 }
 
 // Implement download button.
-let downloadButton = document.querySelector("#save-button");
+let downloadButton = document.querySelector("#download-button");
 downloadButton.addEventListener("click", function() {
     let canvas = document.createElement("canvas");
     let context = canvas.getContext("2d");
