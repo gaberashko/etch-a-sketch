@@ -194,7 +194,7 @@ function getSize() {
     let size;
     do {
         size = Number(prompt(`Please enter grid dimension from 1 to ${MAX_GRID_SIZE}:`)); 
-    } while (isNaN(size) || size < 1 || size > MAX_GRID_SIZE)
+    } while (isNaN(size) || size < 1 || size > MAX_GRID_SIZE || !Number.isSafeInteger(size))
     return size;
 }
 // Implement logic for grid button.
