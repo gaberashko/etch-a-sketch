@@ -237,10 +237,12 @@ settingInputs.forEach((settingInput) => {
 // Implement logic for rainbow checkbox.
 let rainbowCheckbox = document.querySelector("#rainbow");
 rainbowCheckbox.addEventListener("change", ()=> {
+    
     rainbowMode = rainbowCheckbox.checked;
-    //rgbVisual.classList.toggle("rainbow");
-    rgbVisual.classList.toggle("rgb-visual-animated");
+    // Disable other pencil mode
+    blendCheckbox.disabled = !blendCheckbox.disabled;
 
+    rgbVisual.classList.toggle("rgb-visual-animated");
     updateSettingsDisplay();
 });
 
@@ -248,6 +250,8 @@ rainbowCheckbox.addEventListener("change", ()=> {
 let blendCheckbox = document.querySelector("#blend");
 blendCheckbox.addEventListener("change", ()=> {
     blendMode = blendCheckbox.checked;
+    // Disable other pencil mode
+    rainbowCheckbox.disabled = !rainbowCheckbox.disabled;
 });
 
 // Implement color wheel logic.
