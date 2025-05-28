@@ -1,28 +1,38 @@
-// Board constants.
+// BOARD CONSTANTS
 const DEFAULT_GRID_SIZE = 25;
 const MAX_GRID_SIZE = 150;
 const TOOL_STRENGTH = 1;
 const BLEND_STRENGTH = .20;
 const EMPTY_WHITE = "rgb(255, 255, 255)";
+// PENCIL MODES
+const BLEND_MODE = "blend";
+const RAINBOW_MODE = "rainbow";
 
-
-// State variables
+// INITIAL STATE VARIABLES
+let canvasSize = DEFAULT_GRID_SIZE;
 let tools = ["Pencil", "Eraser", "Fill", "Match"];
 let toolEmojis = ["✏️", "🧼", "🧺", "🎨"]
 let toolIndex = 0;
-let rainbowMode = false;
-let blendMode = false;
-let canvasSize = DEFAULT_GRID_SIZE;
 let toolSettings = {
     red: 0,
     green: 0,
     blue: 0,
     strength: TOOL_STRENGTH
 };
+let modes = {
+    [BLEND_MODE]: false,
+    [RAINBOW_MODE]: false,
+}
+let optionCheckboxes = {
+  [RAINBOW_MODE]: document.querySelector("#rainbow"),
+  [BLEND_MODE]: document.querySelector("#blend"),
+};
+
 
 // Initialize the displays, and begin by creating a grid of size DEFAULT_GRID_SIZE.
 let container = document.querySelector(".container");
 let rgbVisual = document.querySelector(".rgb-visual");
+
 
 container.addEventListener("contextmenu", (e) => {
 e.preventDefault();
@@ -35,36 +45,38 @@ function getRandomInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function randomizeColor(element) {
-    element.style.backgroundColor = `rgb(${getRandomInteger(0, 255)}, ${getRandomInteger(0, 255)}
-    , ${getRandomInteger(0, 255)})`;
-    element.style.opacity = parseFloat(getComputedStyle(element).opacity)
-                    + toolSettings.strength;
-}
-
 function drawColor(element) {
-    // Opacity will not be reset, and instead, the RGB values will be meshed algorithmically.
-    if (blendMode) {
-        let blendedColor = blendColor(element);
-        element.style.opacity = parseFloat(getComputedStyle(element).opacity) + toolSettings.strength;
-        element.style.backgroundColor = `rgb(${blendedColor[0]}, ${blendedColor[1]}, ${blendedColor[2]})`;
+    let newOpacity = parseFloat(getComputedStyle(element).opacity) + toolSettings.strength;
+    let newColor = (modes[RAINBOW_MODE]) ?
+     `rgb(${getRandomInteger(0, 255)}, ${getRandomInteger(0, 255)}, ${getRandomInteger(0, 255)})`
+    :`rgb(${toolSettings.red}, ${toolSettings.green}, ${toolSettings.blue})`;
+
+    if (modes[BLEND_MODE]) {
+        // We are assigning a blend-computed color.
+        newColor = blendColor(element, newColor);
     } else {
-        if (getComputedStyle(element).backgroundColor === `rgb(${toolSettings.red}, ${toolSettings.green}, ${toolSettings.blue})`) {
-            element.style.opacity = parseFloat(getComputedStyle(element).opacity) + toolSettings.strength;
-        } else {
-            element.style.opacity = toolSettings.strength;
+        // We are assigning a solid (non-blend-computed) color.
+        if (modes[RAINBOW_MODE] || getComputedStyle(element).backgroundColor !== newColor) {
+            // If rainbow mode or different color, override opacity.
+            newOpacity = toolSettings.strength;
         }
-        element.style.backgroundColor = `rgb(${toolSettings.red},${toolSettings.green},${toolSettings.blue})`;
     }
+    // Assign pixel the newly calculated color and opacity.
+    element.style.backgroundColor = newColor;
+    element.style.opacity = newOpacity;
 }
 
-function blendColor(element) {
-    let curRGB = (getComputedStyle(element).backgroundColor).match(/\d+/g);
-    let blendedRGB;
-    blendedRGB = (parseInt(curRGB[0]) === 255 && parseInt(curRGB[1]) === 255 && parseInt(curRGB[2]) === 255) ? [toolSettings.red, toolSettings.green, toolSettings.blue] : [Math.floor((parseInt(curRGB[0]) + toolSettings.red)/2),
-        Math.floor((parseInt(curRGB[1]) + toolSettings.green)/2),
-        Math.floor((parseInt(curRGB[2]) + toolSettings.blue)/2)];
-    return blendedRGB;
+// Handles the calculation of final blended RGB value.
+function blendColor(element, color) {
+    let curRGB = (getComputedStyle(element).backgroundColor).match(/\d+/g).map((str) => parseInt(str));
+    let blendRGB = color.match(/\d+/g).map((str) => parseInt(str));
+    // If canvas is white, then just return the current pencil RGB. Otherwise, take the midpoint
+    // of the 2 RGB values.
+    let finalRGB = (curRGB[0] === 255 && curRGB[1] === 255 && curRGB[2] === 255) ? 
+    blendRGB : [Math.floor((curRGB[0] + blendRGB[0])/2),
+        Math.floor((curRGB[1] + blendRGB[1])/2),
+        Math.floor((curRGB[2] + blendRGB[2])/2)];
+    return `rgb(${finalRGB[0]}, ${finalRGB[1]}, ${finalRGB[2]})`;
 }
 
 function clearCanvas() {
@@ -86,7 +98,7 @@ function changeGridSize(size) {
             if (e.button === 0) {
                  // Draw
                 if (tools[toolIndex] === "Pencil") {
-                    (rainbowMode) ? randomizeColor(square) : drawColor(square);
+                    drawColor(square);
                 } else if (tools[toolIndex] === "Eraser") { // Erase
                     square.style.opacity = parseFloat(getComputedStyle(square).opacity) 
                     - toolSettings.strength;
@@ -105,7 +117,7 @@ function changeGridSize(size) {
             if (e.buttons === 1) {
                 // Draw
                 if (tools[toolIndex] === "Pencil") {
-                    (rainbowMode) ?  randomizeColor(square) : drawColor(square);
+                    drawColor(square);
                 } else if (tools[toolIndex] === "Eraser") { // Erase
                     square.style.opacity = parseFloat(getComputedStyle(square).opacity) 
                     - toolSettings.strength;
@@ -226,7 +238,7 @@ settingInputs.forEach((settingInput) => {
         toolSettings[propertyId] = parseFloat(settingInput.value);
         // Speeds up performance by only modifying animation when in rainbow mode, and opacity
         // changes.
-        if (propertyId === "strength" && rainbowMode) {
+        if (propertyId === "strength" && modes[RAINBOW_MODE_INDEX]) {
             updateRainbowAnimation();
         }
         // Update the website display of attribute values.
@@ -237,21 +249,13 @@ settingInputs.forEach((settingInput) => {
 // Implement logic for rainbow checkbox.
 let rainbowCheckbox = document.querySelector("#rainbow");
 rainbowCheckbox.addEventListener("change", ()=> {
-    
-    rainbowMode = rainbowCheckbox.checked;
-    // Disable other pencil mode
-    blendCheckbox.disabled = !blendCheckbox.disabled;
-
-    rgbVisual.classList.toggle("rgb-visual-animated");
-    updateSettingsDisplay();
+    toggleOption(RAINBOW_MODE, true);
 });
 
 // Implement logic for blend checkbox.
 let blendCheckbox = document.querySelector("#blend");
 blendCheckbox.addEventListener("change", ()=> {
-    blendMode = blendCheckbox.checked;
-    // Disable other pencil mode
-    rainbowCheckbox.disabled = !rainbowCheckbox.disabled;
+    toggleOption(BLEND_MODE, true);
 });
 
 // Implement color wheel logic.
@@ -271,6 +275,16 @@ colorWheel.addEventListener("change", ()=> {
     updateSettingsDisplay();
 })
 
+// General handler for toggling drawing modes (rainbow, blend).
+function toggleOption(option, clicked) {
+    let chosenCheckbox = optionCheckboxes[option];
+    chosenCheckbox.checked = (!chosenCheckbox.checked) ? !clicked : clicked;
+    // Now set the tool mode.
+    modes[option] = chosenCheckbox.checked;
+    
+    updateSettingsDisplay();
+}
+
 function updateRainbowAnimation() {
     document.documentElement.style.setProperty('--strength', toolSettings.strength);
 }
@@ -284,6 +298,12 @@ function updateSettingsDisplay() {
     let greenValueSlider = document.querySelector("#green");
     let blueValueSlider = document.querySelector("#blue");
     let strengthValueSlider = document.querySelector("#strength");
+
+    if (!modes[RAINBOW_MODE] && rgbVisual.classList.contains("rgb-visual-animated")) {
+        rgbVisual.classList.toggle("rgb-visual-animated");
+    } else if (modes[RAINBOW_MODE] && !rgbVisual.classList.contains("rgb-visual-animated")) {
+        rgbVisual.classList.toggle("rgb-visual-animated");
+    }
 
     redValueSlider.value = toolSettings.red;
     greenValueSlider.value = toolSettings.green;
@@ -334,19 +354,12 @@ downloadButton.addEventListener("click", function() {
 });
 
 window.addEventListener("keydown", (event) => {
-    let settingChange = false;
     switch (event.key) {
         case "b":
-            blendCheckbox.checked = !blendCheckbox.checked;
-            blendMode = blendCheckbox.checked;
-            settingChange = true;
+            toggleOption(BLEND_MODE, false);
             break;
         case "r":
-            rainbowCheckbox.checked = !rainbowCheckbox.checked;
-            rainbowMode = rainbowCheckbox.checked;
-            rgbVisual.classList.toggle("rgb-visual-animated");
-            settingChange = true;
+            toggleOption(RAINBOW_MODE, false);
             break;
     }
-    if (settingChange) updateSettingsDisplay;
 });
