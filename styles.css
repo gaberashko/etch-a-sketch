@@ -136,7 +136,7 @@ input[type="range"]#blue::-moz-range-progress {
     background: url("../images/wood-grain.jpg") ;
     background-color: var(--pac);
     border: var(--PBORDER);
-    border-radius: 10px;
+    border-radius: 0 10px 10px 10px;
     display:flex;
     flex-wrap:wrap;
     user-select:none;
@@ -159,12 +159,12 @@ input[type="range"]#blue::-moz-range-progress {
 .container::after {
     content:"Canvas";
     width:100px;
-    height:100px;
-    top:-35px;
-    left:-3.5px;
+    height:20px;
+    top:-36px;
+    left:-4px;
     padding:inherit;
     border:inherit;
-    border-radius:10px;
+    border-radius:10px 10px 0 0;
     z-index:-1;
     position:absolute;
     background-color: var(--pac);
@@ -241,8 +241,8 @@ input[type="range"]#blue::-moz-range-progress {
     z-index:-1;
 }
 
-.rgb-visual-animated {
-    animation:rainbowAlternate 6s ease-in-out infinite;
+.rgb-visual-animated, .rgb-visual::after {
+    animation:rainbowAlternate 6s linear infinite;
 }
 
 button, .upload-btn, label {
@@ -326,6 +326,7 @@ button:active, .upload-btn:active {
         min-height: calc(100vw - 17px);
         min-width: calc(100vw - 17px);
         aspect-ratio: 1/1;
+        border-top-left-radius: 10px;
     }
 
     .container::after {
@@ -358,5 +359,40 @@ button:active, .upload-btn:active {
     
     #download-button {
         margin-top:0px;
+    }
+}
+
+@media(prefers-color-scheme: dark) {
+    :root {
+    --pac: #7f7c7b;
+    --tred: #d85f5f;
+    --tgreen: #8fb98f;
+    --tblue: #7a90e0;
+    --WHITE: #f4f4f4;
+    --BLACK: #0a0a0a;
+
+    --BGPRIM: #1f1b2e;
+    --CANVASACC: #f7f6f6;
+    --CANVASGRAIN: rgba(255, 180, 120, 0.05);
+
+    --CLRBTNPRIM: #7d2929;
+    --CLRBTNSEC: #7f7c7b;
+    --BTNPRIM: #4b3958;
+    --BTNSEC: #7f7c7b;
+
+    --SLIDEBGC: #3e3a4f;
+    --STRSLIDEC: #eee;
+    --CHRSLIDEC: #ff8c8c;
+
+    --GRADIENTPRIM: #2d233a;
+    --GRADIENTSEC: #3e3752;
+    }
+
+    html {
+        color:var(--WHITE)
+    }
+
+    .container{
+        filter: brightness(70%) saturate(90%);
     }
 }
