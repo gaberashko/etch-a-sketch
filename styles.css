@@ -241,7 +241,7 @@ input[type="range"]#blue::-moz-range-progress {
     z-index:-1;
 }
 
-.rgb-visual-animated, .rgb-visual::after {
+.rgb-visual-animated {
     animation:rainbowAlternate 6s linear infinite;
 }
 
@@ -362,7 +362,7 @@ button:active, .upload-btn:active {
     }
 }
 
-@media(prefers-color-scheme: dark) {
+/* @media(prefers-color-scheme: dark) {
     :root {
     --pac: #7f7c7b;
     --tred: #d85f5f;
@@ -395,4 +395,4 @@ button:active, .upload-btn:active {
     .container{
         filter: brightness(70%) saturate(90%);
     }
-}
+} */
