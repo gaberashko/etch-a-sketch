@@ -130,7 +130,8 @@ input[type="range"]#blue::-moz-range-progress {
 
 .container {
     min-width: 500px;
-    height: 500px;
+    min-height: 500px;
+    aspect-ratio: 1/1;
     padding: 4px;
     background: url("../images/wood-grain.jpg") ;
     background-color: var(--pac);
@@ -204,6 +205,7 @@ input[type="range"]#blue::-moz-range-progress {
 }
 
 .side-option-container {
+    width: max-content;
     border: var(--PBORDER);
     border-radius: 10px;
     background:linear-gradient(135deg, var(--GRADIENTPRIM), var(--GRADIENTSEC));
@@ -337,6 +339,7 @@ button:active, .upload-btn:active {
     }
 
     .side-option-container {
+        width: 100%;
         border: 2px solid var(--pac);
     }
 
