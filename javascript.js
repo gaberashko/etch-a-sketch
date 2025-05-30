@@ -49,8 +49,8 @@ function getRandomInteger(min, max) {
 function drawColor(element) {
     let newOpacity = parseFloat(getComputedStyle(element).opacity) + toolSettings.strength;
     let newColor = (modes[RAINBOW_MODE]) ?
-     `rgb(${getRandomInteger(0, 255)}, ${getRandomInteger(0, 255)}, ${getRandomInteger(0, 255)})`
-    :`rgb(${toolSettings.red}, ${toolSettings.green}, ${toolSettings.blue})`;
+        `rgb(${getRandomInteger(0, 255)}, ${getRandomInteger(0, 255)}, ${getRandomInteger(0, 255)})`
+        :`rgb(${toolSettings.red}, ${toolSettings.green}, ${toolSettings.blue})`;
 
     if (modes[BLEND_MODE]) {
         // We are assigning a blend-computed color.
@@ -67,7 +67,7 @@ function drawColor(element) {
     element.style.opacity = newOpacity;
 }
 
-/* 
+/* Handles the erasing of a pixel. */
 function eraseColor(element) {
     element.style.opacity = parseFloat(getComputedStyle(element).opacity) - toolSettings.strength;
 }
@@ -107,8 +107,7 @@ function changeGridSize(size) {
                 if (tools[toolIndex] === "Pencil") {
                     drawColor(square);
                 } else if (tools[toolIndex] === "Eraser") { // Erase
-                    square.style.opacity = parseFloat(getComputedStyle(square).opacity) 
-                    - toolSettings.strength;
+                    eraseColor(square)
                 } else if (tools[toolIndex] === "Fill") {
                     floodFill(square);
                 } else if (tools[toolIndex] === "Match") {
@@ -125,8 +124,7 @@ function changeGridSize(size) {
                 if (tools[toolIndex] === "Pencil") {
                     drawColor(square);
                 } else if (tools[toolIndex] === "Eraser") { // Erase
-                    square.style.opacity = parseFloat(getComputedStyle(square).opacity) 
-                    - toolSettings.strength;
+                    eraseColor(square);
                 }
             }
         });
@@ -181,7 +179,9 @@ function floodFill(startingSquare) {
         if (visited.has(curIndex)) continue;
         visited.add(curIndex);
         curElement = squares[curIndex];
-        curElement.style.backgroundColor = `rgb(${toolSettings.red}, ${toolSettings.green}, ${toolSettings.blue})`;
+        curElement.style.backgroundColor = (modes[RAINBOW_MODE]) ?
+            `rgb(${getRandomInteger(0, 255)}, ${getRandomInteger(0, 255)}, ${getRandomInteger(0, 255)})` 
+            :`rgb(${toolSettings.red}, ${toolSettings.green}, ${toolSettings.blue})`;
         curElement.style.opacity = toolSettings.strength;
 
         let xCoord = curIndex % canvasSize;
@@ -245,7 +245,7 @@ settingInputs.forEach((settingInput) => {
         toolSettings[propertyId] = parseFloat(settingInput.value);
         // Speeds up performance by only modifying animation when in rainbow mode, and opacity
         // changes.
-        if (propertyId === "strength" && modes[RAINBOW_MODE_INDEX]) {
+        if (propertyId === "strength" && modes[RAINBOW_MODE]) {
             updateRainbowAnimation();
         }
         // Update the website display of attribute values.
