@@ -76,9 +76,8 @@ function eraseColor(element) {
 function blendColor(element, color) {
     let curRGB = (getComputedStyle(element).backgroundColor).match(/\d+/g).map((str) => parseInt(str));
     let blendRGB = color.match(/\d+/g).map((str) => parseInt(str));
-    // If canvas is white, return the current pencil RGB, take RGB midpoint otherwise.
-    let finalRGB = (curRGB[0] === 255 && curRGB[1] === 255 && curRGB[2] === 255) ? 
-    blendRGB : [Math.floor((curRGB[0] + blendRGB[0])/2),
+    // Calculate final RGB value based on tool strength (where 100% strength is midpoint).
+    let finalRGB = [Math.floor((curRGB[0] + blendRGB[0])/2),
         Math.floor((curRGB[1] + blendRGB[1])/2),
         Math.floor((curRGB[2] + blendRGB[2])/2)];
     return `rgb(${finalRGB[0]}, ${finalRGB[1]}, ${finalRGB[2]})`;
