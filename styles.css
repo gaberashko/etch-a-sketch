@@ -26,6 +26,8 @@
     --CHRSLIDEC: #e35959;
     --GRADIENTPRIM: #eeebeb;
     --GRADIENTSEC: #c9c5c3;
+    /* PROPERTIES */
+    --PBORDER: 4px solid var(--pac);
 }
 
 @keyframes rainbowAlternate {
@@ -128,11 +130,11 @@ input[type="range"]#blue::-moz-range-progress {
 
 .container {
     min-width: 500px;
-    min-height: 500px;
+    height: 500px;
     padding: 4px;
     background: url("../images/wood-grain.jpg") ;
     background-color: var(--pac);
-    border: 4px solid var(--pac);
+    border: var(--PBORDER);
     border-radius: 10px;
     display:flex;
     flex-wrap:wrap;
@@ -202,7 +204,7 @@ input[type="range"]#blue::-moz-range-progress {
 }
 
 .side-option-container {
-    border: 4px solid var(--pac);
+    border: var(--PBORDER);
     border-radius: 10px;
     background:linear-gradient(135deg, var(--GRADIENTPRIM), var(--GRADIENTSEC));
     padding: 8px;
@@ -217,6 +219,7 @@ input[type="range"]#blue::-moz-range-progress {
     position:relative;
     min-width:20px;
     min-height:20px;
+    border: var(--PBORDER);
     border-radius:5rem;
     background-color: var(--BLACK);
     display:flex;
@@ -236,7 +239,7 @@ input[type="range"]#blue::-moz-range-progress {
     z-index:-1;
 }
 
-.rgb-visual-animated, .rgb-visual-animated::after {
+.rgb-visual-animated {
     animation:rainbowAlternate 6s ease-in-out infinite;
 }
 
@@ -269,19 +272,6 @@ button:active, .upload-btn:active {
     flex-basis:25%;
     min-height:25%;
     z-index:1;
-}
-
-
-@keyframes heartbeat {
-    0% {
-        opacity:1;
-    }
-    50% {
-        opacity:0;
-    }
-    100% {
-        opacity:1;
-    }
 }
 
 /* Mobile media query. Not pretty given previous setup but mobile support was needed. */

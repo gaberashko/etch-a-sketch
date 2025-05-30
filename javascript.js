@@ -77,9 +77,9 @@ function blendColor(element, color) {
     let curRGB = (getComputedStyle(element).backgroundColor).match(/\d+/g).map((str) => parseInt(str));
     let blendRGB = color.match(/\d+/g).map((str) => parseInt(str));
     // Calculate final RGB value based on tool strength (where 100% strength is midpoint).
-    let finalRGB = [Math.floor((curRGB[0] + blendRGB[0])/2),
-        Math.floor((curRGB[1] + blendRGB[1])/2),
-        Math.floor((curRGB[2] + blendRGB[2])/2)];
+    let finalRGB = [Math.floor(curRGB[0] + toolSettings.strength * ((blendRGB[0] - curRGB[0]) / 2))
+        ,Math.floor(curRGB[1] + toolSettings.strength * ((blendRGB[1] - curRGB[1]) / 2))
+        ,Math.floor(curRGB[2] + toolSettings.strength * ((blendRGB[2] - curRGB[2]) / 2))];
     return `rgb(${finalRGB[0]}, ${finalRGB[1]}, ${finalRGB[2]})`;
 }
 
