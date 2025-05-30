@@ -45,6 +45,7 @@ function getRandomInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+/* Assigns the color of a single pixel */
 function drawColor(element) {
     let newOpacity = parseFloat(getComputedStyle(element).opacity) + toolSettings.strength;
     let newColor = (modes[RAINBOW_MODE]) ?
@@ -66,12 +67,16 @@ function drawColor(element) {
     element.style.opacity = newOpacity;
 }
 
-// Handles the calculation of final blended RGB value.
+/* 
+function eraseColor(element) {
+    element.style.opacity = parseFloat(getComputedStyle(element).opacity) - toolSettings.strength;
+}
+
+/* Handles the calculation of final blended RGB value. */
 function blendColor(element, color) {
     let curRGB = (getComputedStyle(element).backgroundColor).match(/\d+/g).map((str) => parseInt(str));
     let blendRGB = color.match(/\d+/g).map((str) => parseInt(str));
-    // If canvas is white, then just return the current pencil RGB. Otherwise, take the midpoint
-    // of the 2 RGB values.
+    // If canvas is white, return the current pencil RGB, take RGB midpoint otherwise.
     let finalRGB = (curRGB[0] === 255 && curRGB[1] === 255 && curRGB[2] === 255) ? 
     blendRGB : [Math.floor((curRGB[0] + blendRGB[0])/2),
         Math.floor((curRGB[1] + blendRGB[1])/2),
@@ -79,16 +84,18 @@ function blendColor(element, color) {
     return `rgb(${finalRGB[0]}, ${finalRGB[1]}, ${finalRGB[2]})`;
 }
 
+/* Iterate through the canvas and clear all pixels. */
 function clearCanvas() {
     let canvasSquares = document.querySelectorAll(".square");
+
     canvasSquares.forEach((square) => {
         square.style.backgroundColor = EMPTY_WHITE;
         square.style.opacity = 1;
     });
 }
 
+/* Take grid size dimension and generate a new canvas. */
 function changeGridSize(size) {
-    let oldSquares = document.querySelector(".set");
     // Create the new squares and append to the container.
     for (let i = 0; i < (size**2); ++i) {
         let square = document.createElement("div");
@@ -111,7 +118,6 @@ function changeGridSize(size) {
                 grabColor(square);
                 e.preventDefault();
             }
-            square.releasePointerCapture(e.pointerId);
         });
         square.addEventListener("pointerenter", (e) => {
             if (e.buttons === 1) {
@@ -123,7 +129,6 @@ function changeGridSize(size) {
                     - toolSettings.strength;
                 }
             }
-            square.releasePointerCapture(e.pointerId);
         });
         // Adjust the square style to create a proper grid.
         square.setAttribute("style", `flex-basis:${(1/size)*100}%; min-height:${(1/size)*100}%;`);
@@ -144,21 +149,23 @@ function changeGridSize(size) {
 
 function grabColor(square) {
     let rgbValues = (getComputedStyle(square).backgroundColor).match(/\d+/g);
+
     toolSettings.red = parseInt(rgbValues[0]);
     toolSettings.green = parseInt(rgbValues[1]);
     toolSettings.blue = parseInt(rgbValues[2]);
     toolSettings.strength = parseFloat(getComputedStyle(square).opacity);
+
     toolIndex = 0;
     updateSettingsDisplay();
 }
 
 function floodFill(startingSquare) {
-    let targetRGB = (getComputedStyle(startingSquare).backgroundColor);
-    let targetOpacity = parseFloat(getComputedStyle(startingSquare).opacity);
-
     const squares = Array.from(container.children);
     const visited = new Set();
     const squareStack = [];
+
+    let targetRGB = (getComputedStyle(startingSquare).backgroundColor);
+    let targetOpacity = parseFloat(getComputedStyle(startingSquare).opacity);
     let startIndex = squares.indexOf(startingSquare);
     squareStack.push(startIndex);
 

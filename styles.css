@@ -16,6 +16,7 @@
     --BLACK: #000000;
     --BGPRIM: #cab4aa;
     --CANVASACC: #f7f6f6;
+    --CANVASGRAIN: rgba(109, 61, 42, .6);
     --CLRBTNPRIM: #b53939;
     --CLRBTNSEC: #6c0606;
     --BTNPRIM: #6d493f;
@@ -129,7 +130,8 @@ input[type="range"]#blue::-moz-range-progress {
     min-width: 500px;
     min-height: 500px;
     padding: 4px;
-    background-color: var(--WHITE);
+    background: url("../images/wood-grain.jpg") ;
+    background-color: var(--pac);
     border: 4px solid var(--pac);
     border-radius: 10px;
     display:flex;
@@ -139,12 +141,24 @@ input[type="range"]#blue::-moz-range-progress {
     touch-action: none;
 }
 
+.container::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top:0px;
+    left:0px;
+    background-color: var(--CANVASGRAIN);
+    z-index:1;
+
+}
+
 .container::after {
     content:"Canvas";
     width:100px;
     height:100px;
     top:-35px;
-    left:-4px;
+    left:-3.5px;
     padding:inherit;
     border:inherit;
     border-radius:10px;
@@ -182,8 +196,6 @@ input[type="range"]#blue::-moz-range-progress {
     text-align:center;
     display: block;
 }
-
-
 
 #download-button {
     margin-top:15px;
@@ -252,10 +264,11 @@ button:active, .upload-btn:active {
 .square {
     border:none;
     background-color:var(--WHITE);
-    opacity:0;
+    opacity:1;
     flex-grow:1;
     flex-basis:25%;
     min-height:25%;
+    z-index:1;
 }
 
 
@@ -281,13 +294,11 @@ button:active, .upload-btn:active {
         padding: 2px;
         border: 2px solid var(--BTNSEC);
             border-radius: 10px;
-        user-select:none;
     }
 
     input[type="color"] {
         min-width:90%;
         min-height:91%;
-        left:4px;
     }
 
     input[type="range"] {
@@ -330,18 +341,13 @@ button:active, .upload-btn:active {
     }
     
     .top-option-container {
-        display: flex;
-        min-width:0;
-        justify-content: center;
-        align-items:center;
-        margin: 5px auto 8px;
-        gap:4px;
+        min-width: 0;
+        margin-bottom: 8px;
+        gap: 4px;
     }
 
     .side-option-container {
         border: 2px solid var(--pac);
-        border-radius: 10px;
-        padding: 8px;
     }
 
     .side-option-container >*, .pencil-detail-wrapper >* {
@@ -351,7 +357,6 @@ button:active, .upload-btn:active {
     .strong {
         margin-bottom:.4rem;
         font-size:1.2rem;
-        font-weight:bold;
     }
 
     .rgb-visual {
