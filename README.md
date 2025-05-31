@@ -84,6 +84,10 @@ Clicking the "Download Sketch" button saves the current drawing, and downloads i
     <img src="images/website-sketch-4.png" width=200px>
     <img src="images/website-sketch-5.png" width=200px>
     <img src="images/website-sketch-6.png" width=200px>
+    <img src="images/website-sketch-7.png" width=200px>
+    <img src="images/website-sketch-8.png" width=200px>
+    <img src="images/website-sketch-9.png" width=200px>
+    <img src="images/website-sketch-10.png" width=200px>
 </div>
 
 ## Credit
