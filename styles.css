@@ -156,31 +156,22 @@ input[type="range"]#blue::-moz-range-progress {
 
 }
 
-.container::after {
-    content:"Canvas";
-    width:100px;
-    height:20px;
-    top:-36px;
-    left:-4px;
-    padding:inherit;
-    border:inherit;
-    border-radius:10px 10px 0 0;
-    z-index:-1;
-    position:absolute;
-    background-color: var(--pac);
-    color:var(--CANVASACC);
-    font-weight:700;
-    text-align:center;
-}
 
 .top-option-container {
+    background-image: url("./svgs/top.svg");
+    background-size: 105% 100%;
+    background-repeat: no-repeat;
+    background-position: center top; 
     display: flex;
     min-width:800px;
+    min-height: 45px;
     justify-content: center;
     align-items:center;
-    margin: 5px auto;
+    margin: 0 auto 5px;
+    padding: 4px;
     gap:16px;
 }
+
 
 #clear-button {
     background-color: var(--CLRBTNPRIM);
@@ -192,6 +183,7 @@ input[type="range"]#blue::-moz-range-progress {
 }
 
 #tool-display {
+    color:var(--WHITE);
     min-width:5em;
 }
 
@@ -204,16 +196,19 @@ input[type="range"]#blue::-moz-range-progress {
     margin-top:15px;
 }
 
-.side-option-container {
+.side-option {
     width: max-content;
-    border: var(--PBORDER);
-    border-radius: 10px;
     background:linear-gradient(135deg, var(--GRADIENTPRIM), var(--GRADIENTSEC));
-    padding: 8px;
     z-index: 0;
 }
 
-.side-option-container >*, .pencil-detail-wrapper >* {
+.content-container {
+    border: var(--PBORDER);
+    border-radius: 10px;
+        padding: 8px;
+}
+
+.side-option >*, .pencil-detail-wrapper >* {
     margin-bottom:16px;
 }
 
@@ -334,14 +329,15 @@ button:active, .upload-btn:active {
     }
     
     .top-option-container {
-        min-width: 0;
+        max-height:10px;
+        min-width: 400px;
         margin-bottom: 8px;
         gap: 4px;
     }
 
-    .side-option-container {
+    .content-container {
         width: 100%;
-        border: 2px solid var(--pac);
+        border: var(--PBORDER);
     }
 
     .side-option-container >*, .pencil-detail-wrapper >* {
