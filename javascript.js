@@ -116,9 +116,10 @@ function changeGridSize(size) {
                 grabColor(square);
                 e.preventDefault();
             }
+            square.releasePointerCapture(e.pointerId);
         });
         square.addEventListener("pointerenter", (e) => {
-            if (e.buttons === 1 || e.pointerType === "touch") {
+            if (e.buttons === 1) {
                 // Draw
                 if (tools[toolIndex] === "Pencil") {
                     drawColor(square);
@@ -126,7 +127,10 @@ function changeGridSize(size) {
                     eraseColor(square);
                 }
             }
+            square.releasePointerCapture(e.pointerId);
         });
+
+
         // Adjust the square style to create a proper grid.
         square.setAttribute("style", `flex-basis:${(1/size)*100}%; min-height:${(1/size)*100}%;`);
         container.appendChild(square);
