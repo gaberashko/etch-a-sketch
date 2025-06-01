@@ -118,7 +118,7 @@ function changeGridSize(size) {
             }
         });
         square.addEventListener("pointerenter", (e) => {
-            if (e.buttons === 1) {
+            if (e.buttons === 1 || e.pointerType === "touch") {
                 // Draw
                 if (tools[toolIndex] === "Pencil") {
                     drawColor(square);
