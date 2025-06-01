@@ -274,7 +274,6 @@ button:active, .upload-btn:active {
 
 
 .square {
-    touch-action:none;
     border:none;
     background-color:var(--WHITE);
     opacity:1;

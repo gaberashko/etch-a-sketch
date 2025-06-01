@@ -102,12 +102,15 @@ function changeGridSize(size) {
         square.classList.toggle("new");
         square.addEventListener("pointerdown", (e) => {
             if (e.button === 0) {
-                 // Draw
-                if (tools[toolIndex] === "Pencil") {
-                    drawColor(square);
-                } else if (tools[toolIndex] === "Eraser") { // Erase
-                    eraseColor(square)
-                } else if (tools[toolIndex] === "Fill") {
+                // Draw
+                if (e.pointerType !== "touch") {
+                    if (tools[toolIndex] === "Pencil") {
+                        drawColor(square);
+                    } else if (tools[toolIndex] === "Eraser") { // Erase
+                        eraseColor(square)
+                    }
+                }
+                if (tools[toolIndex] === "Fill") {
                     floodFill(square);
                 } else if (tools[toolIndex] === "Match") {
                     grabColor(square);
