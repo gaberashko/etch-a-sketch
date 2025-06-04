@@ -214,7 +214,7 @@ svg#daynight:hover #moon-mask {
     background: url("../images/wood-grain.jpg") ;
     background-color: var(--pac);
     border: var(--PBORDER);
-    border-radius: 0 10px 10px 10px;
+    border-radius: 10px 10px 10px 10px;
     display:flex;
     flex-wrap:wrap;
     user-select:none;
@@ -257,7 +257,7 @@ svg#daynight:hover #moon-mask {
 
 #clear-button {
     background-color: var(--CLRBTNPRIM);
-    border: 4px solid var(--CLRBTNSEC);
+    border: 2px solid var(--CLRBTNSEC);
 }
 
 #tool-display {
@@ -354,7 +354,7 @@ button:active, .upload-btn:active {
 
     button, .upload-btn, label {
         font-size: .7em;
-        min-width: 80px;
+        min-width: 70px;
         min-height:30px;
         padding: 2px;
         border: 2px solid var(--BTNSEC);
@@ -370,6 +370,7 @@ button:active, .upload-btn:active {
         width: 80%;
         margin-right: auto;
         text-align: left;
+        touch-action:none;
 
     }
 
@@ -389,8 +390,26 @@ button:active, .upload-btn:active {
         margin-right: 32px;
     }
     
+    svg#notch {
+        height:45px;
+        min-width:100vw;
+    }
+
+    svg#daynight {
+        width:30px;
+        height:30px;
+    }
+
+    #tool-display {
+        font-size: .8em;
+    }
+
     .top-option-container > svg {
         min-width:430px;
+    }
+
+    .top-option-container > :not(svg#notch) {
+        margin-top: 4px;
     }
 
     .wrapper {
@@ -403,7 +422,6 @@ button:active, .upload-btn:active {
         min-height: calc(100vw - 17px);
         min-width: calc(100vw - 17px);
         aspect-ratio: 1/1;
-        border-top-left-radius: 10px;
     }
 
     .container::after {
@@ -411,6 +429,7 @@ button:active, .upload-btn:active {
     }
     
     .top-option-container {
+        padding-top:0;
         max-height:10px;
         min-width: 400px;
         margin-bottom: 8px;
@@ -437,6 +456,11 @@ button:active, .upload-btn:active {
     
     #download-button {
         margin-top:0px;
+    }
+
+    .icon-container {
+        margin-left:15px;
+        left:0;
     }
 }
 
