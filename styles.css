@@ -391,8 +391,7 @@ button:active, .upload-btn:active {
     }
     
     svg#notch {
-        height:45px;
-        min-width:100vw;
+        min-width:400px;
     }
 
     svg#daynight {
@@ -405,7 +404,7 @@ button:active, .upload-btn:active {
     }
 
     .top-option-container > svg {
-        min-width:430px;
+        min-width:400px;
     }
 
     .top-option-container > :not(svg#notch) {
@@ -459,7 +458,7 @@ button:active, .upload-btn:active {
     }
 
     .icon-container {
-        margin-left:15px;
+        margin-left:min(20px, 0);
         left:0;
     }
 }
