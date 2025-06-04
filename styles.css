@@ -14,6 +14,7 @@
     --tblue: #7188dc;
     --WHITE: rgb(255, 255, 255);
     --BLACK: #000000;
+    --TEXTCOLOR: #000000; 
     --BGPRIM: #cab4aa;
     --CANVASACC: #f7f6f6;
     --CANVASGRAIN: rgba(109, 61, 42, .6);
@@ -26,8 +27,11 @@
     --CHRSLIDEC: #e35959;
     --GRADIENTPRIM: #eeebeb;
     --GRADIENTSEC: #c9c5c3;
+    --DAYICONCOLOR: rgb(121, 177, 222);
+    --DAYICONSHADOW: rgb(255, 255, 255);
     /* PROPERTIES */
     --PBORDER: 4px solid var(--pac);
+    --CONTAINERFILTER: brightness(100%) saturate(100%);
 }
 
 @keyframes rainbowAlternate {
@@ -40,6 +44,10 @@
     100% { background-color: rgba(255, 0, 0, var(--strength)); }
 }
 
+html {
+    color:var(--TEXTCOLOR);
+    transition: all .8s ease-in-out;
+}
 
 body {
     background-color: var(--BGPRIM);
@@ -118,6 +126,71 @@ svg {
     width: 0;
 }
 
+svg#notch {
+    position:absolute;
+    top:0;
+    left: 5;
+    min-width:800px;
+    width: 100%;
+    height: 45px;
+    z-index: -1;
+}
+
+svg#daynight {
+    min-width: 0;
+    height: 38px;
+    width: 38px;
+}
+
+svg#daynight > * {
+    transition: transform .8s ease-in-out,
+    opacity .4s linear;
+}
+
+#rays {
+    transition: transform .8s ease-in-out;
+    opacity:1;
+    transform-origin: 50px 50px;
+    transform: rotate(0deg) scale(100%);
+}
+
+svg#daynight:hover #rays {
+    transform: rotate(180deg) scale(110%);
+    
+}
+
+#sun {
+    opacity:1;
+    transform-origin: 50px 50px;
+    transition: all 1.5s linear;
+    transform:scale(100%);
+}
+
+svg#daynight:hover #sun {
+    transform:scale(115%);
+}
+
+#moon, #moon-shadow {
+    opacity:0;
+    transform-origin: 50px 50px;
+    transform:scale(150%);
+}
+
+#moon.dark-theme, #moon-shadow.dark-theme {
+    opacity:1;
+    transform-origin: 50px 50px;
+}
+
+svg#daynight #moon-mask {
+    transition: all .2s linear;
+    transform:translate(0, 0);
+    opacity:1;
+}
+
+svg#daynight:hover #moon-mask {
+    transform:skewX(-5deg);
+}
+
 .strong {
     margin-bottom:1.5rem;
     font-size:1.5rem;
@@ -147,6 +220,7 @@ svg {
     user-select:none;
     position:relative;
     touch-action: none;
+    filter: var(--CONTAINERFILTER);
 }
 
 .container::before {
@@ -161,7 +235,6 @@ svg {
 
 }
 
-
 .top-option-container {
     display: flex;
     min-width:800px;
@@ -173,24 +246,18 @@ svg {
     gap:16px;
 }
 
-.top-option-container > svg {
-    position:absolute;
-    top:0;
-    left: 5;
-    min-width:800px;
-    width: 100%;
-    height: 45px;
-    z-index: -1;
+.icon-container {
+    position: relative;
+        left:50px; 
+    background-color: var(--DAYICONCOLOR);
+    box-shadow: inset 0 0 3px var(--DAYICONSHADOW);
+        border-radius: 50%;
+        border-style: none;
 }
-
 
 #clear-button {
     background-color: var(--CLRBTNPRIM);
     border: 4px solid var(--CLRBTNSEC);
-}
-
-#clear-button:hover {
-    filter: brightness(95%);
 }
 
 #tool-display {
@@ -260,18 +327,17 @@ button, .upload-btn, label {
     min-height:37px;
     padding: 4px;
     border: 4px solid var(--BTNSEC);
-        border-radius: 10px;
+        border-radius: 15px;
     user-select:none;
 }
 
-button:hover, .upload-btn:hover {
+button:hover, .icon-container:active {
     filter: brightness(95%);
 }
 
 button:active, .upload-btn:active {
     filter:saturate(1.5)
 }
-
 
 .square {
     border:none;
@@ -322,7 +388,6 @@ button:active, .upload-btn:active {
         display: inline;
         margin-right: 32px;
     }
-
     
     .top-option-container > svg {
         min-width:430px;
@@ -375,23 +440,24 @@ button:active, .upload-btn:active {
     }
 }
 
-/* @media(prefers-color-scheme: dark) {
-    :root {
-    --pac: #7f7c7b;
+.dark-theme {
+    --pac: #5f4774;
     --tred: #d85f5f;
     --tgreen: #8fb98f;
     --tblue: #7a90e0;
     --WHITE: #f4f4f4;
     --BLACK: #0a0a0a;
+    --TEXTCOLOR: #f4f4f4;
+    --DAYICONCOLOR: #2d3253;
+
 
     --BGPRIM: #1f1b2e;
     --CANVASACC: #f7f6f6;
     --CANVASGRAIN: rgba(255, 180, 120, 0.05);
 
     --CLRBTNPRIM: #7d2929;
-    --CLRBTNSEC: #7f7c7b;
     --BTNPRIM: #4b3958;
-    --BTNSEC: #7f7c7b;
+    --BTNSEC: #826898;
 
     --SLIDEBGC: #3e3a4f;
     --STRSLIDEC: #eee;
@@ -399,13 +465,9 @@ button:active, .upload-btn:active {
 
     --GRADIENTPRIM: #2d233a;
     --GRADIENTSEC: #3e3752;
-    }
+    --CONTAINERFILTER: brightness(70%) saturate(90%);
+}
 
-    html {
-        color:var(--WHITE)
-    }
-
-    .container{
-        filter: brightness(70%) saturate(90%);
-    }
-} */
+.dark-theme#sun, .dark-theme#rays {
+    opacity: 0;
+}

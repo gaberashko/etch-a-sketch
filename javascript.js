@@ -271,6 +271,11 @@ blendCheckbox.addEventListener("change", ()=> {
     toggleOption(BLEND_MODE, true);
 });
 
+let dayNight = document.querySelector("#daynight");
+dayNight.addEventListener("click", () => {
+    changeColorScheme();
+})
+
 // Implement color wheel logic.
 let colorWheel = document.querySelector("#color-wheel");
 colorWheel.addEventListener("change", ()=> {
@@ -296,6 +301,25 @@ function toggleOption(option, clicked) {
     modes[option] = chosenCheckbox.checked;
     
     updateSettingsDisplay();
+}
+
+// Handles changing the color scheme and animating the toggle button.
+function changeColorScheme() {
+    document.documentElement.classList.toggle("dark-theme");
+    updateDayNightIcon();
+}
+
+function updateDayNightIcon() {
+    let sun = document.querySelector("#sun");
+    sun.classList.toggle("dark-theme");
+    let rays = document.querySelector("#rays");
+    rays.classList.toggle("dark-theme");
+    let moon = document.querySelector("#moon");
+    moon.classList.toggle("dark-theme");
+    let moonShadow = document.querySelector("#moon-shadow");
+    moonShadow.classList.toggle("dark-theme");
+
+    
 }
 
 function updateRainbowAnimation() {
