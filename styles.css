@@ -340,6 +340,7 @@ button:active, .upload-btn:active {
 }
 
 .square {
+    transition:background-color .06s linear;
     border:none;
     background-color:var(--WHITE);
     opacity:1;
