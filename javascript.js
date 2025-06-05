@@ -218,15 +218,18 @@ function equalOpacity(a, targetOpacity) {
 function getSize() {
     let size;
     do {
-        size = Number(prompt(`Please enter grid dimension from 1 to ${MAX_GRID_SIZE}:`)); 
+        size = prompt(`Please enter grid dimension from 1 to ${MAX_GRID_SIZE}:`);
+        if (!size) return size;
+        size = Number(size);
     } while (isNaN(size) || size < 1 || size > MAX_GRID_SIZE || !Number.isSafeInteger(size))
     return size;
 }
+
 // Implement logic for grid button.
 let gridButton = document.querySelector("#size-button");
 gridButton.addEventListener("click", () => {
     let size = getSize();
-    changeGridSize(size);});
+    if (size) changeGridSize(size);});
 
 // Implement the logic for clear button.
 let clearButton = document.querySelector("#clear-button");
